@@ -129,9 +129,29 @@ function getSectionText(field: FillableField): string[] {
   return items;
 }
 
+function getHelperAndErrorText(field: FillableField): { helperText: string[]; errorText: string[] } {
+  const helperText: string[] = [];
+  const errorText: string[] = [];
+  const describedBy = field.getAttribute('aria-describedby');
+  if (describedBy) {
+    for (const id of describedBy.split(/\s+/)) {
+      const node = getReferencedText(field, id);
+      if (node) {
+        const target = field.ownerDocument.getElementById(id);
+        (target?.matches('[role="alert"], .error, [class*="error" i]') ? errorText : helperText).push(cleanText(node));
+      }
+    }
+  }
+  for (const candidate of Array.from(field.parentElement?.querySelectorAll<HTMLElement>('[role="alert"], .error, [class*="error" i]') ?? []).slice(0, 3)) {
+    addUnique(errorText, candidate.innerText || candidate.textContent);
+  }
+  return { helperText, errorText };
+}
+
 /** Extract only labels and nearby page copy; input values are intentionally never read. */
 export function extractFieldContext(field: FillableField): FieldContext {
   const fieldType = field.tagName === 'INPUT' ? field.type : field.tagName === 'SELECT' ? 'select-one' : 'textarea';
+  const helperAndError = getHelperAndErrorText(field);
   return {
     fieldType,
     isDropdownField: isDropdownField(field),
@@ -141,5 +161,8 @@ export function extractFieldContext(field: FillableField): FieldContext {
     explicitText: getExplicitText(field),
     nearbyText: getNearbyText(field),
     sectionText: getSectionText(field),
+    ...helperAndError,
+    pageTitle: cleanText(field.ownerDocument.title),
+    pageCompany: cleanText(field.ownerDocument.querySelector('meta[property="og:site_name"], meta[name="application-name"]')?.getAttribute('content')),
   };
 }

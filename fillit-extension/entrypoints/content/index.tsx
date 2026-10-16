@@ -9,12 +9,14 @@ import { FillItPopover } from './components/FillItPopover';
 import { SilentLearnToast } from './components/SilentLearnToast';
 import { getGraphSnapshot, sendGraphMessage, subscribeToGraph } from '../../core/storageBridge';
 import { watchSilentLearning } from './silentLearner';
+import { listenForShakeToAsk } from './shakeDetector';
 
 function FillItController({ uiRoot }: { uiRoot: HTMLElement }) {
   const [activeField, setActiveField] = useState<FillableField | null>(null);
   const [context, setContext] = useState<FieldContext | null>(null);
   const [graph, setGraph] = useState<KnowledgeGraph | null>(null);
   const [learnCandidate, setLearnCandidate] = useState<{ field: FillableField; label: string; value: string } | null>(null);
+  const [copilotField, setCopilotField] = useState<FillableField | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -51,15 +53,29 @@ function FillItController({ uiRoot }: { uiRoot: HTMLElement }) {
     return stopListening;
   }, [uiRoot]);
 
+  useEffect(() => listenForShakeToAsk({
+    uiRoot,
+    getActiveField: () => activeField,
+    onAsk: (field) => {
+      setActiveField(field);
+      setContext(extractFieldContext(field));
+      setCopilotField(field);
+    },
+  }), [activeField, uiRoot]);
+
   return (
     <>
       <FillItPopover
         field={activeField}
         context={context}
         graph={graph}
+        copilot={copilotField === activeField}
+        onOpenCopilot={() => activeField && setCopilotField(activeField)}
+        onCloseCopilot={() => setCopilotField(null)}
         onDismiss={() => {
           setActiveField(null);
           setContext(null);
+          setCopilotField(null);
         }}
       />
       {learnCandidate && graph && (

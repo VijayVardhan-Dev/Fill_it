@@ -16,6 +16,41 @@ export interface FieldContext {
   explicitText: string[];
   nearbyText: string[];
   sectionText: string[];
+  helperText: string[];
+  errorText: string[];
+  pageTitle: string;
+  pageCompany: string;
+}
+
+export type AiProvider = 'gemini' | 'groq' | 'local';
+
+export interface AiConfig {
+  provider: AiProvider;
+  apiKey: string;
+  model: string;
+}
+
+export interface PageContextPacket {
+  fieldLabel: string;
+  fieldType: string;
+  constraints: string[];
+  helperText: string[];
+  errorText: string[];
+  pageTitle: string;
+  pageCompany: string;
+}
+
+export interface AiFieldExplanation {
+  summary: string;
+  whatToWrite: string;
+  tips: string[];
+  privacyNote: string;
+}
+
+export interface TextareaDraft {
+  id: string;
+  label: 'Technical Focus' | 'Concise Pitch' | 'Founder/Impact Angle';
+  value: string;
 }
 
 export type ProfileField =
@@ -88,7 +123,10 @@ export type MessageType =
   | 'SAVE_LEARNED_FIELD'
   | 'UPDATE_GRAPH'
   | 'RESET_DEFAULT_GRAPH'
-  | 'GET_GRAPH';
+  | 'GET_GRAPH'
+  | 'ASK_AI_COPILOT'
+  | 'GENERATE_TEXTAREA_DRAFTS'
+  | 'PARSE_RESUME_TEXT';
 
 export interface SaveLearnedFieldMessage {
   type: 'SAVE_LEARNED_FIELD';
@@ -104,6 +142,11 @@ export interface RuntimeMessage {
   type: MessageType;
   graph?: KnowledgeGraph;
   field?: SaveLearnedFieldMessage['field'];
+  packet?: PageContextPacket;
+  prompt?: string;
+  draft?: string;
+  refinement?: 'Shorter' | 'More Technical' | 'Formal';
+  resumeText?: string;
 }
 
 export interface SuggestionOption {

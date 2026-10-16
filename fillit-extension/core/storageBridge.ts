@@ -1,7 +1,8 @@
-import type { KnowledgeGraph, RuntimeMessage } from './types';
+import type { AiConfig, KnowledgeGraph, RuntimeMessage } from './types';
 
 export const STORAGE_KEY = 'fillit_knowledge_graph';
 export const CHANNEL_NAME = 'fillit_knowledge_graph_channel';
+export const AI_CONFIG_KEY = 'fillit_ai_config';
 
 type StorageChanges = Record<string, { newValue?: unknown }>;
 type StorageListener = (changes: StorageChanges) => void;
@@ -33,8 +34,48 @@ async function getStoredGraph(): Promise<KnowledgeGraph | null> {
     } catch {
       // Fall through to the page-local fallback when the extension API is unavailable.
     }
+
   }
   return getFallbackValue();
+}
+
+function getFallbackAiConfig(): AiConfig | null {
+  try {
+    const raw = globalThis.localStorage?.getItem(AI_CONFIG_KEY);
+    return raw ? JSON.parse(raw) as AiConfig : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getAiConfig(): Promise<AiConfig> {
+  const fallback: AiConfig = { provider: 'local', apiKey: '', model: 'gemini-2.0-flash' };
+  if (hasBrowserStorage() || hasChromeStorage()) {
+    try {
+      const result = await browser.storage.local.get(AI_CONFIG_KEY);
+      return { ...fallback, ...(result[AI_CONFIG_KEY] as Partial<AiConfig> | undefined) };
+    } catch {
+      // Use the local preview fallback when the extension API is unavailable.
+    }
+  }
+  return { ...fallback, ...(getFallbackAiConfig() ?? {}) };
+}
+
+export async function setAiConfig(config: AiConfig): Promise<void> {
+  const snapshot = { ...config };
+  if (hasBrowserStorage() || hasChromeStorage()) {
+    try {
+      await browser.storage.local.set({ [AI_CONFIG_KEY]: snapshot });
+      return;
+    } catch {
+      // Use localStorage in localhost previews.
+    }
+  }
+  try {
+    globalThis.localStorage?.setItem(AI_CONFIG_KEY, JSON.stringify(snapshot));
+  } catch {
+    // Storage is optional in ordinary web-page preview contexts.
+  }
 }
 
 export async function setStoredGraph(graph: KnowledgeGraph): Promise<void> {

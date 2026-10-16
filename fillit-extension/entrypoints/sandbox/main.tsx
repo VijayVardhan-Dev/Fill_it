@@ -163,6 +163,8 @@ function App() {
   const [projectExperience, setProjectExperience] = useState('');
   const [workSample, setWorkSample] = useState('');
   const [workAuthorization, setWorkAuthorization] = useState('');
+  const [jargonAnswer, setJargonAnswer] = useState('');
+  const [aiAnswer, setAiAnswer] = useState('');
   const update = (key: keyof typeof form) => (value: string) => setForm((current) => ({ ...current, [key]: value }));
 
   return (
@@ -258,8 +260,30 @@ function App() {
           <Field label="Preferred work authorization (new field)" name="work-authorization" value={workAuthorization} onChange={setWorkAuthorization} placeholder="e.g. Employment visa" />
         </section>
 
+        <section style={cardStyle}>
+          <h2 style={{ margin: '0 0 6px', fontSize: 20 }}>Test #8 · Shake-to-Ask Jargon Fields</h2>
+          <p style={{ margin: '0 0 16px', color: '#69758a', fontSize: 14 }}>
+            Hover this field and rapidly reverse the pointer three times, or focus it and press Alt + /.
+          </p>
+          <label htmlFor="sandbox-jargon" style={{ display: 'grid', gap: 7, color: '#34405a', fontSize: 14, fontWeight: 600 }}>
+            Explain your experience with event-driven idempotent workflows
+            <input id="sandbox-jargon" name="jargon-workflows" value={jargonAnswer} onChange={(event) => setJargonAnswer(event.currentTarget.value)} placeholder="A jargon-heavy question" style={inputStyle} />
+          </label>
+        </section>
+
+        <section style={cardStyle}>
+          <h2 style={{ margin: '0 0 6px', fontSize: 20 }}>Test #9 · AI Multi-Draft Textarea</h2>
+          <p style={{ margin: '0 0 16px', color: '#69758a', fontSize: 14 }}>
+            Ask FillIt for Technical Focus, Concise Pitch, and Founder/Impact Angle drafts, then click one to inject it.
+          </p>
+          <label htmlFor="sandbox-ai-textarea" style={{ display: 'grid', gap: 7, color: '#34405a', fontSize: 14, fontWeight: 600 }}>
+            Why are you interested in this role?
+            <textarea id="sandbox-ai-textarea" name="motivation" value={aiAnswer} onChange={(event) => setAiAnswer(event.currentTarget.value)} placeholder="Your selected draft will appear here" style={{ ...inputStyle, minHeight: 120, resize: 'vertical' }} />
+          </label>
+        </section>
+
         <footer style={{ color: '#7b879b', fontSize: 12 }}>
-          Demo values are fictional and live in the extension bundle. Nothing is sent to a server.
+          Demo values are fictional and live in the extension bundle. AI stays local until a provider key is configured in the Vault.
         </footer>
       </div>
     </main>

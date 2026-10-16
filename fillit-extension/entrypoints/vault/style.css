@@ -25,4 +25,14 @@
 .vault-title--section { margin-top: 38px; } .vault-learned { display: grid; gap: 1px; padding: 0; overflow: hidden; } .vault-learned > div { display: grid; grid-template-columns: 1fr 1.5fr 100px; gap: 15px; padding: 13px 16px; border-bottom: 1px solid #30323c; font-size: 11px; } .vault-learned b { color: #c2c5ce; font-weight: 500; } .vault-learned span { color: #eef0f4; } .vault-learned small { color: #777a86; }
 .vault-loading { padding: 40px; color: #8b8e9b; }
 .vault-actions button:focus-visible, .vault-persona:focus-visible, .vault-add:focus-visible { outline: 2px solid #8d9bff; outline-offset: 3px; }
+.vault-ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.vault-ai-grid label, .vault-import-label { display: grid; gap: 6px; color: #b1b5c0; font-size: 11px; }
+.vault-ai-grid input, .vault-ai-grid select, .vault-import-label textarea { width: 100%; min-height: 32px; padding: 9px 10px; color: #e8eaf0; background: #16181e; border: 1px solid #30323c; border-radius: 4px; outline: none; font-size: 12px; }
+.vault-ai-key { grid-column: 1 / -1; }
+.vault-import-label { margin-top: 18px; }
+.vault-import-label textarea { min-height: 100px; resize: vertical; }
+.vault-import-actions { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.vault-import-actions button { min-height: 28px; padding: 7px 10px; color: white; background: #536be2; border: 0; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; }
+.vault-import-actions button:disabled { opacity: .45; cursor: not-allowed; }
+.vault-import-actions span { color: #72d6a5; font: 10px 'JetBrains Mono', monospace; }
 @media (max-width: 760px) { .vault-header { padding: 0 18px; } .vault-layout { grid-template-columns: 1fr; gap: 30px; padding: 28px 18px; } .vault-sidebar { border-right: 0; padding-right: 0; } .vault-grid { grid-template-columns: 1fr; } .vault-grid label:last-child { grid-column: auto; } }
