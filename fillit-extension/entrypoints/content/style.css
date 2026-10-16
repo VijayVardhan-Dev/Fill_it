@@ -1,0 +1,478 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:host,
+:host > div {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  letter-spacing: -0.012em;
+}
+
+:host {
+  color-scheme: light dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+.fillit-popover {
+  --fillit-ink: #17191f;
+  --fillit-muted: #777b86;
+  --fillit-subtle: #9a9eaa;
+  --fillit-line: #eceef2;
+  --fillit-accent: #5268e8;
+  --fillit-accent-wash: #f1f3ff;
+  width: min(360px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  color: var(--fillit-ink);
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(29, 34, 48, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 24px 60px rgba(20, 25, 40, 0.17), 0 4px 14px rgba(20, 25, 40, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.78) inset;
+  backdrop-filter: blur(22px) saturate(150%);
+  overflow: hidden;
+  animation: fillit-popover-in 150ms cubic-bezier(.2, .75, .25, 1);
+}
+
+.fillit-popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 15px 13px;
+}
+
+.fillit-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fillit-brand__mark {
+  display: grid;
+  flex: 0 0 auto;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(145deg, #7185ff, #4f64df 72%);
+  border-radius: 9px;
+  box-shadow: 0 3px 8px rgba(74, 94, 224, 0.24), 0 0 0 1px rgba(43, 61, 170, 0.12) inset;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.fillit-brand__name {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.fillit-brand__subtitle {
+  max-width: 260px;
+  margin: 3px 0 0;
+  color: var(--fillit-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fillit-close {
+  display: grid;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  place-items: center;
+  color: #9296a1;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.fillit-close:hover {
+  color: var(--fillit-ink);
+  background: #f5f6f8;
+  border-color: #eceef2;
+}
+
+.fillit-close:focus-visible,
+.fillit-persona:focus-visible,
+.fillit-option:focus-visible,
+.fillit-learn-toast button:focus-visible {
+  outline: 2px solid var(--fillit-accent);
+  outline-offset: 2px;
+}
+
+.fillit-popover__persona-bar {
+  display: flex;
+  gap: 3px;
+  margin: 0 14px;
+  padding: 3px;
+  background: #f5f6f8;
+  border: 1px solid #eff0f3;
+  border-radius: 9px;
+}
+
+.fillit-persona {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 6px 8px;
+  color: #777b86;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.fillit-persona:hover {
+  color: var(--fillit-ink);
+}
+
+.fillit-persona[aria-selected='true'] {
+  color: #30343d;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(24, 29, 41, 0.08), 0 0 0 1px rgba(24, 29, 41, 0.04);
+}
+
+.fillit-quick-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 11px 14px 2px;
+  padding: 9px 10px;
+  color: #4459ca;
+  background: var(--fillit-accent-wash);
+  border: 1px solid #e5e9ff;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.fillit-quick-select__bolt {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  color: #5268e8;
+  background: #fff;
+  border: 1px solid #e4e8ff;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.fillit-popover__list {
+  max-height: 296px;
+  padding: 9px 8px 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d7df transparent;
+}
+
+.fillit-popover__list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fillit-popover__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fillit-popover__list::-webkit-scrollbar-thumb {
+  background: #d4d7df;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.fillit-option {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  color: var(--fillit-ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 110ms ease, border-color 110ms ease, transform 110ms ease;
+}
+
+.fillit-option:hover,
+.fillit-option[aria-selected='true'] {
+  background: #f7f8fb;
+  border-color: #eceef4;
+}
+
+.fillit-option[aria-selected='true'] {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+}
+
+.fillit-option:active {
+  transform: scale(0.995);
+}
+
+.fillit-option__value {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+  white-space: normal;
+}
+
+.fillit-option__meta {
+  display: block;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  color: #626671;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: normal;
+}
+
+.fillit-popover__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+  padding: 7px 13px;
+  color: var(--fillit-subtle);
+  background: #fcfcfd;
+  border-top: 1px solid var(--fillit-line);
+  font-size: 10px;
+}
+
+.fillit-footer__keys {
+  color: #626671;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: -0.035em;
+}
+
+.fillit-error {
+  margin: 0;
+  padding: 0 13px 10px;
+  color: #bd394f;
+  font-size: 11px;
+}
+
+@keyframes fillit-popover-in {
+  from { opacity: 0; transform: translateY(-3px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fillit-popover,
+  .fillit-option,
+  .fillit-close,
+  .fillit-persona {
+    animation: none;
+    transition: none;
+  }
+
+  .fillit-learn-toast {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    max-width: min(360px, calc(100vw - 28px));
+    padding: 10px;
+    color: #17181c;
+    background: rgba(255, 255, 255, .98);
+    border: 1px solid rgba(20, 23, 31, .14);
+    border-radius: 10px;
+    box-shadow: 0 14px 34px rgba(22, 27, 40, .16);
+    backdrop-filter: blur(16px);
+    font-size: 11px;
+  }
+
+  .fillit-learn-toast__icon {
+    color: #3f56c7;
+    font-size: 16px;
+  }
+
+  .fillit-learn-toast__body {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+  }
+
+  .fillit-learn-toast__body strong {
+    font-size: 12px;
+  }
+
+  .fillit-learn-toast__body span {
+    overflow-wrap: anywhere;
+    color: #626671;
+    font-size: 11px;
+  }
+
+  .fillit-learn-toast button {
+    min-height: 28px;
+    padding: 5px 9px;
+    color: #3046b6;
+    background: #eef1ff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .fillit-learn-toast button:last-child {
+    padding: 3px 6px;
+    color: #626671;
+    background: transparent;
+    font-size: 17px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :host {
+      color-scheme: dark;
+    }
+
+    .fillit-popover {
+      --fillit-ink: #f1f2f6;
+      --fillit-muted: #b1b5c0;
+      --fillit-subtle: #9ca1ae;
+      --fillit-line: #353844;
+      --fillit-accent-wash: #252d5b;
+      background: rgba(35, 37, 45, .98);
+      border-color: #454957;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .38);
+    }
+
+    .fillit-popover__persona-bar,
+    .fillit-popover__footer {
+      background: #292c35;
+    }
+
+    .fillit-persona[aria-selected='true'],
+    .fillit-option:hover,
+    .fillit-option[aria-selected='true'] {
+      color: #f1f2f6;
+      background: #363a48;
+      border-color: #4a5062;
+    }
+
+    .fillit-option__meta,
+    .fillit-footer__keys {
+      color: #b1b5c0;
+    }
+
+    .fillit-quick-select {
+      color: #c2cbff;
+      background: #29315f;
+      border-color: #424d86;
+    }
+
+    .fillit-close:hover {
+      color: #f1f2f6;
+      background: #363a48;
+      border-color: #4a5062;
+    }
+
+    .fillit-learn-toast {
+      color: #f1f2f6;
+      background: rgba(35, 37, 45, .98);
+      border-color: #454957;
+    }
+
+    .fillit-learn-toast__body span {
+      color: #b1b5c0;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .fillit-popover,
+    .fillit-learn-toast {
+      border-width: 2px;
+    }
+
+    .fillit-option[aria-selected='true'],
+    .fillit-persona[aria-selected='true'] {
+      outline: 2px solid currentColor;
+      outline-offset: -2px;
+    }
+  }
+
+  .fillit-learn-toast {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    max-width: min(360px, calc(100vw - 28px));
+    padding: 9px 10px;
+    color: #17181c;
+    background: rgba(255, 255, 255, .97);
+    border: 1px solid rgba(20, 23, 31, .12);
+    border-radius: 10px;
+    box-shadow: 0 14px 34px rgba(22, 27, 40, .16);
+    backdrop-filter: blur(16px);
+    font-size: 11px;
+  }
+  .fillit-learn-toast__icon {
+    color: #536be2;
+    font-size: 16px;
+  }
+  .fillit-learn-toast__body {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+  }
+  .fillit-learn-toast__body span {
+    overflow: hidden;
+    color: #747780;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .fillit-learn-toast button {
+    padding: 5px 8px;
+    color: #3c54c7;
+    background: #eef1ff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .fillit-learn-toast button:last-child {
+    padding: 3px 5px;
+    color: #747780;
+    background: transparent;
+    font-size: 16px;
+  }
+}

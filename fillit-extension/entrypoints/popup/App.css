@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+#root {
+  width: 100%;
+}
+
+.toolbar {
+  width: 330px;
+  padding: 17px;
+  color: #17191f;
+  background: #fff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.toolbar__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar__mark {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(145deg, #7185ff, #4f64df 72%);
+  border-radius: 9px;
+  box-shadow: 0 3px 8px rgba(74, 94, 224, 0.24);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.toolbar h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.toolbar__header p {
+  margin: 3px 0 0;
+  color: #858994;
+  font-size: 10px;
+}
+
+.toolbar__status {
+  width: 7px;
+  height: 7px;
+  margin-left: auto;
+  background: #43ad7d;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #e8f5ee;
+}
+
+.toolbar__card {
+  margin-top: 17px;
+  padding: 14px;
+  background: linear-gradient(145deg, #fff, #fcfcfe);
+  border: 1px solid #e9ebf0;
+  border-radius: 12px;
+  box-shadow: 0 5px 16px rgba(25, 29, 40, 0.045);
+}
+
+.toolbar__eyebrow {
+  color: #596ee3;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+}
+
+.toolbar__card p {
+  margin: 8px 0 13px;
+  color: #5f636e;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.toolbar__shortcut {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-top: 10px;
+  color: #8b8f99;
+  border-top: 1px solid #eff0f3;
+  font-size: 10px;
+}
+
+.toolbar__shortcut span {
+  margin-right: auto;
+}
+
+.toolbar kbd {
+  min-width: 21px;
+  padding: 3px 5px;
+  color: #626671;
+  background: #f6f7f9;
+  border: 1px solid #e8eaf0;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  text-align: center;
+}
+
+.toolbar__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 13px;
+  color: #a0a3ac;
+  font-size: 9px;
+}
+
+.toolbar__vault {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 9px;
+  margin-top: 10px;
+  padding: 10px;
+  color: #535b70;
+  background: #f1f3ff;
+  border: 1px solid #e1e5ff;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.toolbar__vault:focus-visible {
+  outline: 2px solid #536be2;
+  outline-offset: 3px;
+}
+
+.toolbar__vault > span:first-child {
+  display: grid;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  color: #536be2;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.toolbar__vault span:nth-child(2) {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+.toolbar__vault strong {
+  color: #3c54c7;
+  font-size: 10px;
+}
+
+.toolbar__vault small {
+  color: #7e87a8;
+  font-size: 9px;
+}
+
+.toolbar__vault > b {
+  color: #7180d8;
+  font-size: 13px;
+}
+
+.toolbar__version {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
